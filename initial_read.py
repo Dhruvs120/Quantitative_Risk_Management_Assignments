@@ -3,7 +3,7 @@ import pandas as pd
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 
-## Let er op, de Closing prices hebben geen currency meer
+## Let er op, de Closing prices hebben geen currency teken meer
 
 # Read the data
 main_df = pd.read_csv('Data/Cleaned_Indices_Assignment1.csv', sep=';')
