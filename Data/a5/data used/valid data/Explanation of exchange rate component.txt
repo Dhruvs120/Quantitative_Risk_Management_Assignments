@@ -1,0 +1,43 @@
+We used the API to get the exchange rate data, so we were not using an extra csv file to save it, the API related code is as follows.
+
+
+import pandas as pd
+import pandas_datareader.data as web
+
+# Define the date range for the exchange rate data.
+start_date = '2010-04-06'
+end_date = '2020-04-02'
+
+
+usd_per_eur = web.DataReader('DEXUSEU', 'fred', start_date, end_date)
+usd_per_eur.ffill(inplace=True)
+
+# Compute conversion factor
+eur_per_usd_series = 1 / usd_per_eur['DEXUSEU']
+
+
+# jpy
+jpy_per_usd = web.DataReader('DEXJPUS', 'fred', start_date, end_date)
+jpy_per_usd.ffill(inplace=True)
+jpy_per_usd.bfill(inplace=True)  # Backward fill to handle any initial gaps
+
+# Extract the series for JPY/USD.
+jpy_per_usd_series = jpy_per_usd['DEXJPUS']
+
+
+jpy_to_eur_series = (1 / jpy_per_usd_series) * eur_per_usd_series
+
+
+# For AAPL and MSFT (quoted in USD) we use the eur_per_usd conversion factor.
+# For 6758.T (quoted in JPY) we use the computed jpy_to_eur conversion factor.
+# For ASML.AS and VOW3.DE (already in EUR) the factor is simply 1.
+df_exchange = pd.DataFrame({
+    'Date': usd_per_eur.index,
+    'AAPL_exch_rate': eur_per_usd_series.values,
+    'MSFT_exch_rate': eur_per_usd_series.values,
+    'ASML.AS_exch_rate': [1] * len(usd_per_eur),
+    '6758.T_exch_rate': jpy_to_eur_series.values,
+    'VOW3.DE_exch_rate': [1] * len(usd_per_eur)
+}).reset_index(drop=True)
+
+print(df_exchange)
