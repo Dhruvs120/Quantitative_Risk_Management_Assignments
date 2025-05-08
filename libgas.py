@@ -44,8 +44,8 @@ import datetime as dt
 
 ###########################################################
 ### Get hessian and related functions
-from lib.grad import *
-from lib.readarg import *
+from grad import *
+from readarg import *
 
 ###########################################################
 ### (vY, vS2)= GenrGAS(vP, iT)
