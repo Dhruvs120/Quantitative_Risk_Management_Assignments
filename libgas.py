@@ -265,7 +265,7 @@ def LnLGAS(vP, vY):
     # print ('ll= %g, o=%g, a=%g, b=%g' % (vLL.mean(), vP[0], vP[1], vP[2]))
 
     # vPTr= TransPar(vP)
-    # print ('oTr=%g, aTr= %g, bTr= %g' % (vPTr[0], vPTr[1], vPTr[2]))
+    print ('oTr=%g, aTr= %g, bTr= %g' % (vPTr[0], vPTr[1], vPTr[2]))
 
     return vLL
 
@@ -305,7 +305,7 @@ def EstGAS(vP, vY):
     return (dLL, vS2, sMess)
 
 ###########################################################
-### (dLL, vS2, sMess)= EstGAS(vP, vY)
+##    (dLL, vS2, sMess)= EstGAS(vP, vY)
 def EstGASTr(vP, vY):
     """
     Purpose:
