@@ -373,10 +373,10 @@ def EstCopula(dtArg, mod= 'gauss'):
     elif (mod.startswith('gumbel')):
         dTheta= dP0= 1/(1-dRtau)
     else:
-        # res= st.spearmanr(mU)
-        # dRsp= res.statistic
-        # dTheta= dP0= dRsp
-        # dP0= 2.0
+        res= st.spearmanr(mU)
+        dRsp= res.statistic
+        dTheta= dP0= dRsp
+        dP0= 2.0
         dTheta= dP0= 2*dRtau/(1-dRtau)
     vP0= np.array([dP0, dNu]) if mod == 'stud' else np.array([dP0])
 
